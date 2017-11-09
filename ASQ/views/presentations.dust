@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <script src="/webcomponentsjs/webcomponents-lite.min.js"></script>
+    <link rel="import" href="/asq-elements/asq-elements.html">
+    {>htmlHead/}
+   
+    <title>ASQ - My Presentations</title>
+
+      {?slidesByCourses}
+        {@JSONIter:slidesByCourses username=username}
+          {#value}
+            {#fontFaces}
+              <style>{.|s}</style>
+            {/fontFaces}
+          {/value}
+        {/JSONIter}
+      {/slidesByCourses}
+  </head>
+
+  <body class="no-touch" data-view-name="presentations">
+
+    <!---   top menu -->
+    {>menu/}
+
+    {! dialog !}
+    <div id="main-dialog"></div>
+
+    <!---   Content area   -->
+    <div class="container-fluid" id="main-container">
+
+      <!--- Alert -->
+      <!-- Show notification fo user feedback based on query alert and type-->
+
+      {?alert}
+      <div class="row">
+        <div class="col-sm-offset-2 col-sm-8 col-md-offset-3 col-md-6 col-lg-offset-4 col-lg-4">
+          <div class="alert alert-{type}">
+            {alert}
+          </div>
+        </div>
+      </div>
+      {/alert}
+
+
+      <!---   Seperating Headline   -->
+      
+      {^slidesByCourses}
+        <div class="row">
+          <div class="col-md-12  clearfix headline">
+            <h2 class="pull-left">No courses available</h2>
+          </div>
+          <div class="col-md-12">
+            <p class="lead">Please <a href="/upload">upload</a> a new presentation.</p>
+          </div>
+        </div>
+      {:else}
+        {@JSONIter:slidesByCourses username=username cookie=cookie}
+            <div class="row accordion-heading">
+              <div class="col-md-12 clearfix headline">
+                <h2 class="pull-left">{key}</h2>
+                <a class="pull-right accordion-toggle" data-toggle="collapse" data-target="#course-{idx}" href="#">show/hide</a>
+                <!--<a class="deleteSlideshows pull-right controls" href="#"><i class="icon-trash icon-white"> </i> Delete Slideshows</a>-->
+              </div>
+            </div>
+            <div class=" accordion-body collapse in" id="course-{idx}">
+              <div class="accordion-inner isotope">
+                {#value}
+                  {^isConverting}
+                    {>"shared/presentationThumb" position=$idx/}
+                  {:else}
+                    {>"shared/convertingPresentationThumb" position=$idx/}
+                  {/isConverting}
+                {/value}
+              </div>
+            </div>
+        {/JSONIter}
+      {/slidesByCourses}
+
+    </div>
+    <div id="iOSWebAppInfo" data-content='Tab on &nbsp;<img width="20px" src="/img/iOS-action.png"/>&nbsp; and select<br/> "Add to Home Screen".'></div>
+    <!-- /container -->
+
+    <!-- Le javascript -->
+    <!-- Connect to sockets only if there's an active session -->
+    {?session}
+
+      <!-- Socket parameters that are needed by our javascript -->
+      {>serverParams/}
+      <script>
+        /* if the + sign looks strange to you have a look here:
+         http://stackoverflow.com/questions/13341698/javascript-plus-sign-in-front-of-function-name */
+
+        +function initSocket(){
+          var clientSocket = require('clientSocket').init();
+        }();        
+      </script>
+    {/session}
+  </body>
+</html>

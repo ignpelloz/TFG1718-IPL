@@ -1,0 +1,15 @@
+<!---   Seperating Headline   -->
+<div class="col-md-12 headline clearfix">
+	<h2 class="nav navbar-nav">{title}</h2>
+
+	<form id="delete-form" method="post" action="/slideshows/{slideshow.id}">
+		<input name="_method" value="DELETE" type="hidden">
+	</form>		
+	<ul class="nav navbar-nav navbar-right edit-menu">
+		<li><a id="delete" href="#"><i class="glyphicon glyphicon-trash"> </i>  Delete Slideshow </a></li>
+		<li><a href="/user/edithtml/{slideshow._id}/"><i class="glyphicon glyphicon-align-left"> </i>  HTML </a></li>
+		<li><a href="/user/editstyle/{slideshow._id}"><i class="glyphicon glyphicon-eye-open"> </i>  CSS </a></li>
+		<li><a href="/user/editquestions/{slideshow._id}"><i class="glyphicon glyphicon-question-sign"> </i>  Questions </a></li>			
+		<li><a href="/user/edit/{slideshow._id}"><i class="glyphicon glyphicon-th "> </i> Overview </a></li>
+	</ul>		
+</div>

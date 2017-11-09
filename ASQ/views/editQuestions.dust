@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    {>htmlHead/}
+    <title>ASQ - Edit HTML </title>
+  </head>
+  <body>
+
+    <!---   top menu --->
+    {>menu/}
+
+    <!---   Content area   --->
+    <div class="container" id="main-container">
+
+      <!-- Show notification fo user feedback based on query alert and type-->
+      {?alert}
+      <div class="alert alert-{type}">
+        {alert}
+      </div>
+      {/alert}
+
+      <!--- Edit menu --->
+      <div class="row" >
+        <div class="span12">
+          <h3>Edit Questions</h3>
+        </div>
+        {>editSubmenu/}
+      </div>
+
+      <div class="row">
+        <div class="span12">
+          <table class="table">
+            <thead>
+              <tr>
+                <th>#</th>
+                <th>Question Text</th>
+                <th>Question Type</th>
+              </tr>
+            </thead>
+            <tbody>
+              {#questions}
+              <tr>
+                <td>{$idx}</td>
+                <td>{stemText}</td>
+                <td>{questionType}</td>
+              </tr>
+              {/questions}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+    <script src="/js/edit.js"></script>
+  </body>
+</html>

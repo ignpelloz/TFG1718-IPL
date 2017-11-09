@@ -1,0 +1,27 @@
+<!-- Sidebar -->
+<div id="sidebar-wrapper" data-spy="affix" data-offset-top="40">
+  <ul class="sidebar-nav">
+    <li class="sidebar-nav__item {@eq key=activeMenu value="general"}sidebar-nav__item--active{/eq}">
+      <a class="sidebar-nav__anchor" href="general">
+        <div class="sidebar-icon-wrapper">
+          <i class="fa fa-cog fa-2x"></i></div>
+        <div class="sidebar-nav__text-wrapper">General</div>
+      </a>
+    </li>
+    <li class="sidebar-nav__item {@eq key=activeMenu value="users"}sidebar-nav__item--active{/eq}">
+      <a class="sidebar-nav__anchor" href="users">
+        <div class="sidebar-icon-wrapper">
+          <i class="fa fa-users fa-2x"></i></div>
+        <div class="sidebar-nav__text-wrapper">Users</div>
+      </a>
+    </li>
+    <li class="sidebar-nav__item {@eq key=activeMenu value="plugins"}sidebar-nav__item--active{/eq}">
+      <a class="sidebar-nav__anchor" href="plugins">
+        <div class="sidebar-icon-wrapper">
+          <i class="fa fa-puzzle-piece fa-2x"></i>
+        </div>
+        <div class="sidebar-nav__text-wrapper">Plugins</div>
+      </a>
+    </li>
+  </ul>
+</div>

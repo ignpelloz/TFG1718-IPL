@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    {>htmlHead/}
+    <title>ASQ - {owner.name}'s live presentations</title>
+  </head>
+
+  <body class="no-touch" data-view-name="userLive">
+
+    <!---   top menu -->
+    {>menu/}
+
+    <!---   Content area   -->
+    <div class="container" id="main-container">
+
+      <!--- Alert -->
+      <!-- Show notification fo user feedback based on query alert and type-->
+
+      {?alert}
+      <div class="alert alert-{type}">
+        {alert}
+      </div>
+      {/alert}
+      
+        {^livePresentations}
+          <div class="row">
+            <div class="col-md-12  headline">
+              <h2 class="pull-left"><a href="/{username}">{owner.name}</a> doesn't seem to have any live presentations.</h2>
+            </div>
+          </div>
+        {:else}
+              <div class="row accordion-heading">
+                <div class="col-md-12 clearfix headline">
+                  <h2 class="pull-left"><a href="/{username}">{owner.name}'s</a> live presentations</h2>
+                  <a class="pull-right accordion-toggle" data-toggle="collapse" data-target="#course-{idx}" href="#">show/hide</a>
+                </div>
+              </div>
+              <div class="row accordion-body collapse in" id="course-{idx}">
+                <div class="col-md-12 accordion-inner layout horizontal">
+                  {#livePresentations username=username}
+                    <div class="livebox" id="{_id}">
+                      <div class="thumb-bg horizontal layout center-justified center"> 
+                        <div class="thumb-actions" >
+                          <div class="thumb-buttons-container" style="height:100%;">
+                            <div class="thumb-buttons">
+                              <a href="{liveUrl}" class="btn btn-primary"><span class="glyphicon glyphicon-picture"> </span> Join presentation</a>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="thumb-info" >
+                        <h4>{title}</h4>
+                      </div>
+                    </div>
+                  {/livePresentations}
+                </div>
+              </div>
+        {/livePresentations}
+
+    </div>
+    <div id="iOSWebAppInfo" data-content='Tab on &nbsp;<img width="20px" src="/img/iOS-action.png"/>&nbsp; and select<br/> "Add to Home Screen".'></div>
+    <!-- /container -->
+
+    <!-- Le javascript -->
+    <!-- Connect to sockets only if there's an active session -->
+
+  </body>
+</html>

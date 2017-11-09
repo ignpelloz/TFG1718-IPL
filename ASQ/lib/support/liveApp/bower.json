@@ -1,0 +1,17 @@
+{
+  "name": "ASQ live app",
+  "private": "true",
+  "authors": [
+    "ASQ"
+  ],
+  "description": "Live app for ASQ",
+  "keywords": [
+    "ASQ"
+  ],
+  "dependencies": {
+    "asq-live-app": "https://github.com/ASQ-USI/live-app-asq.git#feat-student-question-events"
+  },
+  "resolutions": {
+    "asq-base": "master"
+  }
+}

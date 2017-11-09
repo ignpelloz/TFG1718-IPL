@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    {>htmlHead/}
+    <title>ASQ - Statistics of {title}</title>
+
+    <!--Load the AJAX API-->
+    <script type="text/javascript" src="https://www.google.com/jsapi"></script>
+    <script src="/socket.io/socket.io.js"></script>
+  </head>
+
+
+  <body data-asq-host="{host}" data-view-name="sessionStats"
+    data-asq-session-id="{session.id}"
+    {?live}
+      class='live'
+      data-asq-port="{port}" data-asq-socket-mode="{mode}" data-asq-socket-token="{token}" 
+    {/live}
+   >
+
+    <!--   top menu -->
+    {>menu/}
+
+    <!--   Content area   -->
+    <div class="container" style="width: 100%;" id="main-container">
+
+      <div class="row" style="margin: 0 40px;">
+        <div class="headline">
+          <h3>Statistics for session {session.id}
+          {?live}
+          &nbsp;
+          <div class="live-icon" style="display:inline;">
+            <div class='live-text-container'>
+              <div class='live-text'>live</div>
+            </div>
+          </div>
+          {/live}
+          </h3>
+          <span>
+            <em class="muted">started on</em> {session.startDate} {?session.endDate}<em class="muted">ended on</em> {session.endDate}{/session.endDate}
+          </span>
+        </div>
+        {?live}
+        <div class="alert alert-success">
+          <button type="button" class="close" data-dismiss="alert">
+            &times;
+          </button>
+          <strong>Live updates activated!</strong> Statistics will update it self when new answers are submitted.
+        </div>
+        {:else}
+        <div class="alert">
+          <button type="button" class="close" data-dismiss="alert">
+            &times;
+          </button>
+          <strong>No live updates!</strong> It seems as if no session corresponding to this statistics is running.
+        </div>
+        {/live}
+        
+        <ul class="answer-list" id="answer-list">
+          <li class="al-head">
+            <div class="al-timeline-head">
+              {#questions}
+              <div class="al-timeline-head-answers" style="width:{questionWidth}%;"> #{@math key=$idx method="add" operand="1"/}
+              </div>
+              {/questions}
+            </div>
+          </li>
+          {#users}
+            {>"shared/alEntry"/}
+          {/users}
+        </ul>
+      </div>
+
+    </div>
+    <!-- /container -->
+  </body>
+</html>

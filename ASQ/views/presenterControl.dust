@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    {>htmlHead/}
+    <title>ASQ - {title}</title>
+    <link href="/css/bootstrap-responsive.min.css" rel="stylesheet">
+    <script type="text/javascript" src="https://www.google.com/jsapi"></script>
+
+  </head>
+
+  <body data-asq-host="{host}" data-asq-port="{port}" data-asq-session-id="{id}" data-asq-socket-mode="{mode}" data-asq-socket-token="{token}"  data-asq-last-session="{slideshow.lastSession}" data-view-name="presenterControl"  data-asq-slide-tree="{slideTree}">
+
+    <!---   Top menu -->
+    {>menu/}
+
+    <!---  Controlls for running presentation -->
+    <div class="container" id="slidesControll">
+      <!---   Content area   -->
+      <div class="controls">
+
+        <div class="row">
+          <div class="col-sm-7 hidden-xs">
+            <h4>Active slide</h4>
+            {! TODO: security for invisible user !}
+            <iframe id="thisSlideFrame" scrolling="no" src="//{host}:{port}/{username}/presentations/{presentation}/live/{id}/?role=ghost" width="100%" height="340px" ></iframe>
+          </div>
+          <div class="col-sm-5 hidden-xs">
+            <h4>Next slide</h4>
+            <iframe id="nextSlideFrame" scrolling="no" src="//{host}:{port}/{username}/presentations/{presentation}/live/{id}/?role=ghost&offset=1" width="100%" height="260px" ></iframe>
+          </div>
+          <div class="col-md-5">
+            <div id="clock">
+              <p>
+                <span id="hours">00</span> : <span id="min">00</span> : <span id="sec"></span>
+                <button class="btn btn-sm btn-inverse" id="resetClock">
+                  <span class="glyphicon glyphicon-repeat"> </span> Reset timer
+                </button>
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div class="row" id="buttons">
+        	 <div class="col-md-3 visible-xs">
+          	<div class="mobilePrev"><p><span class="glyphicon glyphicon-arrow-left"></span>  Previous slide</p></div>
+          	<div class="mobileNext"><p><strong>Next slide</strong> <span class="glyphicon glyphicon-arrow-right"> </span> </p></div>
+          </div>
+          <div class="col-md-5">
+          	<a class="btn btn-danger btn-sm" id="stopSessionBtn" href="#"> <i class="fa fa-stop fa-lg"></i> stop</a>
+            <a href="/{username}/sessions/{id}/stats" class="btn btn-sm btn-inverse"><i class="fa fa-line-chart fa-lg"></i> statistics</a>
+            <a href="{presentationViewUrl}" class="btn btn-sm btn-inverse hidden-xs"><i class="fa fa-picture-o fa-lg"></i> beamer view</a>
+          </div>
+          <div class="col-md-2 hidden-xs">
+            <button class="btn btn-info" type="button" id="prev-btn"><i class="fa fa-step-backward fa-lg"></i>
+              previous
+            </button>
+          </div>
+          <div class="col-md-2 hidden-xs">
+            <button class="btn btn-lg btn-primary" type="button" id="next-btn"><i class="fa fa-step-forward fa-lg"></i>
+              next
+            </button>
+          </div>
+
+          <div class="col-md-2 pull-right ">
+            <p class="connected-viewers-number">
+              Waiting for viewers.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- / Content area -->
+
+      <!-- Thumbnails controllThumbs -->
+
+      <div class="controlBottom hidden-xs">
+
+        <div id="controlToggle" class="hidden-xs">
+          <a href="#" ><span class="glyphicon glyphicon-chevron-down"> </span> Hide <span class="glyphicon glyphicon-chevron-down"> </span></a>
+        </div>
+
+        <div class="control-thumbs" id="control-thumbs">
+          <ul class="thumbs-wrapper" id="thumbs-wrapper">
+            {#slidesThumbs}
+            <div class="thumb {id}" style="background-image: url('/slides/thumbs/{slidesId}/{$idx}-thumb.png')">
+              <div class="labelsContainer">
+                <div class="labels">
+                  {#questions}
+                  <span class="label label-success"><span class="glyphicon glyphicon-question-sign"></span> {.}</span>
+                  {/questions}
+                  {#stats}
+                  <span class="label label-info"><span class="glyphicon glyphicon-signal"></span> {.}</span>
+                  {/stats}
+                </div>
+              </div>
+            </div>
+            {/slidesThumbs}
+          </ul>
+        </div>
+
+      </div>
+      <!-- / Thumbnails controllThumbs -->
+    </div>
+    <!-- /Controlls for runnig presentation -->
+
+  </body>
+</html>

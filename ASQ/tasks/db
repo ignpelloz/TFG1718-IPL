@@ -1,0 +1,82 @@
+#!/usr/bin/env node
+
+/**
+  @fileoverview db tsks
+**/
+
+'use strict';
+
+var Promise = require('bluebird');
+var mongoose = require('mongoose');
+var conf = require('../config');
+
+
+//process args
+var args = process.argv.splice(2);
+var command = args[0];
+
+if(command == "dropDb"){
+
+  mongoose.connect(conf.mongo.mongoUri, function(err) {
+    if (err) {
+      throw err;
+    }
+    console.log('Dropping database: '+ conf.mongo.dbName +' ...');
+    mongoose.connection.db.dropDatabase(function(err) {
+      if (err) {
+        throw err;
+      } else {
+        console.log("Done!")
+        process.exit(0);
+      }
+    });
+  });
+}
+
+if(command == "emptyModel"){
+
+  //models require a global db instance
+  global.db = mongoose.createConnection(conf.mongo.mongoUri);
+  var schemas = require('../models');
+
+  var modelNames = args.splice(1);
+  if(!modelNames.length){
+    console.log('No model names speficied. Exiting..');
+    process.exit(0);
+  }
+
+  console.log("Notice: no middleware (hooks) are executed when removing documents...");
+
+  Promise.reduce(modelNames, function(result, name){
+    console.log('Emptying model: '+ conf.mongo.dbName +'.' + name + ' ...');
+    var m = db.model(name);
+
+    return m.remove({}).exec();
+  },'').then(function(){
+    console.log('Done!')
+    process.exit(0);
+  }).catch(function(err){
+    throw err;
+  })
+}
+
+if (command =="migrate"){
+
+  const fork = require('child_process').fork;
+  const path = require('path');
+
+  const mongoMigratePath = path.resolve(__dirname, '..', 'node_modules/mongodb-migrate');
+  //kick off process
+  var child = fork(mongoMigratePath, ['-runmm', '-cfg', 'config/migration-config.js']);
+
+  //spit stdout to screen
+  child.on('message', function (message) {   process.stdout.write(message.toString());  });
+
+  //spit stderr to screen
+  child.on('error', function (err) {   process.stdout.write(err.toString());  });
+
+  child.on('close', function (code) { 
+      console.log('Done!')
+      process.exit(0);
+  });
+}
