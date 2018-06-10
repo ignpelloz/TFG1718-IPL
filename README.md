@@ -1,1 +1,5 @@
-#This repository will contain the code regarding my bachelor thesis. By now, go check the repository inside ISA group.
+# oas-tools
+
+Middlewares to be used on NodeJS applications working with OpenAPI Specification (v3).
+
+Ignacio Peluaga Lozada - Bachelor Thesis 2018
