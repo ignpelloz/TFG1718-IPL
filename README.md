@@ -1,4 +1,4 @@
-# Ignacio Peluaga Lozada - Bachelor Thesis 2018
+# Ignacio Peluaga Lozada - Bachelor Thesis 2018.
 
 NodeJS module to manage RESTfull APIs defined with OpenAPI 3.0 Specs over express servers:
 https://github.com/isa-group/oas-tools
